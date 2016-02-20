@@ -27,30 +27,33 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal|top"
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/scan_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:onClick="scanCard()"
-                android:text="Scan"
-                android:textSize="24sp"
-                android:padding="5sp"
-                android:background="#447744"
-                android:clickable="true"
-                android:textColor="#ffffff"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text"
-                android:id="@+id/textView_explanation" />
+            android:gravity="center_horizontal"
+            android:id="@+id/linearLayout_content">
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/scan_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        android:onClick="scanCard()"
+        android:text="Scan"
+        android:textSize="24sp"
+        android:padding="5sp"
+        android:background="#447744"
+        android:clickable="true"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:translationZ="1dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_explanation"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center_horizontal|bottom" />
 
 </FrameLayout>

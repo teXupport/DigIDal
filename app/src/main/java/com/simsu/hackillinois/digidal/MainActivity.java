@@ -11,6 +11,7 @@ import android.view.View;
 import android.app.Activity;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextView;
     private NfcAdapter mNfcAdapter;
+    private String mNumber;
 
     /**
      * Some older devices needs a small delay between UI widget updates
@@ -193,10 +195,15 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean sendInfo(View v) {
         if (1==1) {
-            Toast.makeText(this, "I'll send some stuff.", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this, "I'll send ID: " + mNumber, Toast.LENGTH_LONG).show();
             return true;
         }
 
         return false;
+    }
+
+    public void saveID(View v){
+        mNumber = ((Button) findViewById(R.id.save_button)).toString();
     }
 }

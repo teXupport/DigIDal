@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -204,6 +205,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveID(View v){
-        mNumber = ((Button) findViewById(R.id.save_button)).toString();
+        mNumber = ((EditText) findViewById(R.id.editText_number)).getText().toString();
     }
 }

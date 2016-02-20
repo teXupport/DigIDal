@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#228822"
+    android:background="#559955"
     tools:context="com.simsu.hackillinois.digidal.MainActivity"
     android:padding="10sp">
 
@@ -34,14 +34,15 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/scan_button"
+        android:id="@+id/send_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
-        android:onClick="scanCard()"
-        android:text="Scan"
+        android:onClick="sendInfo"
+        android:text="Send"
         android:textSize="24sp"
         android:padding="5sp"
+        android:layout_marginTop="48sp"
         android:background="#447744"
         android:clickable="true"
         android:textColor="#ffffff"
@@ -55,5 +56,13 @@
         android:id="@+id/textView_explanation"
         android:layout_gravity="center_horizontal|bottom"
         android:gravity="center_horizontal|bottom" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_number"
+        android:layout_gravity="center_horizontal|top"
+        android:hint="Enter your card number..."
+        android:textColor="#ffffff" />
 
 </FrameLayout>

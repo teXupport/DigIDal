@@ -191,9 +191,11 @@ public class MainActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    public boolean scanCard() {
-        if (1==1)
+    public boolean sendInfo(View v) {
+        if (1==1) {
+            Toast.makeText(this, "I'll send some stuff.", Toast.LENGTH_LONG).show();
             return true;
+        }
 
         return false;
     }

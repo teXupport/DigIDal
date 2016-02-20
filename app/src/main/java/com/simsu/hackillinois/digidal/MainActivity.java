@@ -1,6 +1,7 @@
 package com.simsu.hackillinois.digidal;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.app.Activity;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -196,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean sendInfo(View v) {
         if (1==1) {
-
             Toast.makeText(this, "I'll send ID: " + mNumber, Toast.LENGTH_LONG).show();
             return true;
         }
@@ -206,5 +207,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void saveID(View v){
         mNumber = ((EditText) findViewById(R.id.editText_number)).getText().toString();
+
+        Button send_button = (Button) findViewById(R.id.send_button);
+        send_button.setEnabled(true);
+
+//
+//        Adding Keyboard close
+//        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(editText_number.getWindowToken(), 0);
     }
 }

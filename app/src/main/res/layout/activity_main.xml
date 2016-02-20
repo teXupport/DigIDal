@@ -57,6 +57,7 @@
         android:nestedScrollingEnabled="false"
         android:onClick="sendInfo"
         android:text="Send"
+        android:enabled="false"
         android:textSize="24sp"
         android:padding="5sp"
         android:layout_marginTop="48sp"
@@ -72,7 +73,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView_explanation"
         android:layout_gravity="center_horizontal|bottom"
-        android:gravity="center_horizontal|bottom" />
+        android:gravity="center_horizontal|bottom"
+        android:enabled="false" />
 
     <EditText
         android:layout_width="wrap_content"

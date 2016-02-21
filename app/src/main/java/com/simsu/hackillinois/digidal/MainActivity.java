@@ -196,13 +196,8 @@ public class MainActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    public boolean sendInfo(View v) {
-        if (1==1) {
+    public void sendInfo(View v) {
             Toast.makeText(this, "I'll send ID: " + mNumber, Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-        return false;
     }
 
     public void saveID(View v){

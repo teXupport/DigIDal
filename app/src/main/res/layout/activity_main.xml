@@ -74,7 +74,8 @@
         android:id="@+id/textView_explanation"
         android:layout_gravity="center_horizontal|bottom"
         android:gravity="center_horizontal|bottom"
-        android:enabled="false" />
+        android:enabled="false"
+        android:layout_marginBottom="64sp" />
 
     <EditText
         android:layout_width="wrap_content"

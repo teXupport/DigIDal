@@ -1,8 +1,13 @@
 package com.simsu.hackillinois.digidal;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.os.Build;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.nio.charset.Charset;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -33,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+    private static final int AUTO_HIDE_DELAY_MILLIS = 2500;
 
     public static final String TAG = "NFC";
 
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    private EditText mTextBox;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -109,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.linearLayout_content);
         mTextView = (TextView) findViewById(R.id.textView_explanation);
+        mTextBox = (EditText) findViewById(R.id.editText_number);
 
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
@@ -140,7 +149,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleIntent(Intent intent) {
-
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+            NdefMessage[] msgs;
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            if (rawMsgs != null) {
+                msgs = new NdefMessage[rawMsgs.length];
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    msgs[i] = (NdefMessage) rawMsgs[i];
+                }
+                String msgsAsString = "";
+                for (int i = 0; i < msgs.length; i++) {
+                    msgsAsString += new String(msgs[i].getRecords()[0].getPayload());
+                }
+                Toast.makeText(this, msgsAsString, Toast.LENGTH_LONG).show();
+                mTextBox.setText(msgsAsString);
+            }
+        }
     }
 
     @Override
@@ -150,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100);
+        delayedHide(1);
     }
 
     private void toggle() {
@@ -196,12 +220,18 @@ public class MainActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void sendInfo(View v) {
-            Toast.makeText(this, "I'll send ID: " + mNumber, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "I'll send ID: " + mNumber, Toast.LENGTH_LONG).show();
+        NdefRecord mimeRecord = NdefRecord.createMime("text/plain",
+                mTextBox.getText().toString().getBytes(Charset.forName("UTF-8")));
+        NdefMessage msg = new NdefMessage(mimeRecord);
+
+        mNfcAdapter.setNdefPushMessage(msg, this);
     }
 
     public void saveID(View v){
-        mNumber = ((EditText) findViewById(R.id.editText_number)).getText().toString();
+        mNumber = mTextBox.getText().toString();
 
         Button send_button = (Button) findViewById(R.id.send_button);
         send_button.setEnabled(true);
@@ -210,5 +240,13 @@ public class MainActivity extends AppCompatActivity {
 //        Adding Keyboard close
 //        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.hideSoftInputFromWindow(editText_number.getWindowToken(), 0);
+
+        hideSoftKeyboard((EditText) findViewById(R.id.editText_number));
+        Toast.makeText(this, "Saved number successfully.", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void hideSoftKeyboard(EditText input) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
 }
